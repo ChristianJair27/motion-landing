@@ -1,0 +1,178 @@
+---
+import Base from '../layouts/Base.astro'
+
+const stack = ['Three.js', 'GLSL shaders', 'GSAP', 'ScrollTrigger', 'SplitText', 'Astro', 'TypeScript', 'Tailwind CSS', 'Design tokens', 'WebGL']
+
+const features = [
+  {
+    n: '01',
+    title: 'Real-time 3D',
+    body: 'A custom GLSL shader deforms the hero object with 3D noise. It follows the pointer and reacts to scroll.',
+  },
+  {
+    n: '02',
+    title: 'Scroll choreography',
+    body: 'Pinned sections, horizontal travel and scrubbed timelines, all tied to one scroll position.',
+  },
+  {
+    n: '03',
+    title: 'Design DNA',
+    body: 'Color, type, radius and motion live in one tokens file, so every new page reuses the same visual language.',
+  },
+  {
+    n: '04',
+    title: 'Fast by default',
+    body: 'Static HTML first. The 3D scene loads after the page is idle, pauses off-screen and caps pixel ratio.',
+  },
+  {
+    n: '05',
+    title: 'Accessible motion',
+    body: 'With reduced motion turned on, every element shows its final state and the 3D scene stays still.',
+  },
+]
+
+const steps = [
+  { title: 'Discover', body: 'Goals, audience and the one action the page has to drive.' },
+  { title: 'Design DNA', body: 'Tokens for color, type and motion, then a high-fidelity design.' },
+  { title: 'Build', body: 'Static site, 3D scene and animation timelines, tested on phones first.' },
+  { title: 'Launch', body: 'Lighthouse check, analytics events and handoff of code and accounts.' },
+]
+---
+
+<Base
+  title="Aurora — 3D & motion landing page concept"
+  description="Concept landing page by Revolution505: real-time Three.js shader, GSAP scroll choreography and a design-token system."
+>
+  <header data-nav class="fixed inset-x-0 top-0 z-50">
+    <nav class="mx-auto mt-4 flex max-w-6xl items-center justify-between rounded-full px-5 py-3 glass">
+      <a href="#hero" class="font-display text-lg font-semibold tracking-tight">aurora<span class="text-accent-2">.</span></a>
+      <div class="hidden gap-8 text-sm text-muted sm:flex">
+        <a href="#features" class="hover:text-text">Features</a>
+        <a href="#process" class="hover:text-text">Process</a>
+        <a href="#contact" class="hover:text-text">Contact</a>
+      </div>
+      <a href="#contact" class="rounded-full bg-text px-4 py-2 text-sm font-medium text-bg">Start a project</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section id="hero" class="relative h-[100svh] min-h-[640px] overflow-hidden">
+      <div class="hero-poster absolute inset-0" aria-hidden="true"></div>
+      <canvas id="hero-canvas" class="absolute inset-0 h-full w-full" aria-hidden="true"></canvas>
+      <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg via-bg/40 to-transparent lg:bg-gradient-to-r lg:from-bg/85 lg:via-bg/30" aria-hidden="true"></div>
+      <div data-hero-copy class="relative z-10 mx-auto flex h-full max-w-6xl flex-col justify-end px-5 pb-20 sm:pb-28">
+        <p class="mb-5 text-sm uppercase tracking-[0.3em] text-accent-2">Concept · 3D & motion</p>
+        <h1 data-split="hero" class="font-display text-[clamp(2.75rem,7vw,6.5rem)] font-semibold leading-[0.95] tracking-tight">
+          Websites that<br />feel alive.
+        </h1>
+        <p data-split="copy" class="mt-6 max-w-xl text-lg text-muted">
+          Real-time 3D, scroll-driven storytelling and motion that guides the eye, on a page that still loads fast on a phone.
+        </p>
+        <div class="mt-9 flex flex-wrap gap-3">
+          <a data-cta data-magnetic href="#contact" class="rounded-full bg-accent px-6 py-3 font-medium text-white">Start a project</a>
+          <a data-cta href="#features" class="rounded-full border border-line px-6 py-3 font-medium hover:border-muted">See how it works</a>
+        </div>
+      </div>
+      <div data-scroll-hint class="absolute bottom-6 left-1/2 z-10 -translate-x-1/2 text-xs uppercase tracking-[0.3em] text-muted">Scroll</div>
+    </section>
+
+    <!-- Stack marquee -->
+    <section aria-label="Technology" class="marquee overflow-hidden border-y border-line py-6">
+      <div data-marquee-track class="flex w-max gap-12 whitespace-nowrap font-display text-2xl text-muted">
+        {[...stack, ...stack].map((s) => <span>{s} <span class="text-accent">✦</span></span>)}
+      </div>
+    </section>
+
+    <!-- Features: pinned horizontal scroll on desktop -->
+    <section id="features" class="relative overflow-hidden py-24 lg:flex lg:h-screen lg:items-center lg:py-0">
+      <div data-features-track class="flex flex-col gap-6 px-5 lg:flex-row lg:gap-8 lg:pl-[max(1.25rem,calc((100vw-72rem)/2))]">
+        <div class="shrink-0 lg:w-[28rem] lg:self-center">
+          <p class="text-sm uppercase tracking-[0.3em] text-accent-2">What's inside</p>
+          <h2 class="mt-4 font-display text-5xl font-semibold leading-none tracking-tight">Built to be <span class="text-gradient">remembered</span>.</h2>
+        </div>
+        {features.map((f, i) => (
+          <article data-feature class="glass relative flex shrink-0 flex-col justify-between overflow-hidden rounded-[var(--radius-card)] p-8 lg:h-[26rem] lg:w-[24rem]">
+            <div
+              class="pointer-events-none absolute -right-16 -top-16 size-56 rounded-full opacity-40 blur-3xl"
+              style={`background: ${['#7c5cff', '#21d4fd', '#ff5ca8'][i % 3]}`}
+              aria-hidden="true"
+            ></div>
+            <span class="relative font-display text-6xl font-semibold text-muted/40">{f.n}</span>
+            <div>
+              <h3 class="mt-8 font-display text-2xl font-semibold">{f.title}</h3>
+              <p class="mt-3 text-muted">{f.body}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- Statement -->
+    <section id="statement" class="mx-auto max-w-5xl px-5 py-32">
+      <p data-split="statement" class="font-display text-[clamp(1.75rem,4vw,3.5rem)] font-medium leading-tight tracking-tight">
+        Motion is not decoration. It tells people where to look, what changed and what to do next, so every animation on this page has a job.
+      </p>
+    </section>
+
+    <!-- Process -->
+    <section id="process" class="mx-auto max-w-5xl px-5 pb-32">
+      <p class="text-sm uppercase tracking-[0.3em] text-accent-2">Process</p>
+      <h2 class="mt-4 font-display text-5xl font-semibold tracking-tight">From brief to launch</h2>
+      <div class="relative mt-16 pl-12">
+        <svg class="absolute left-3 top-0 h-full w-2" preserveAspectRatio="none" viewBox="0 0 2 100" aria-hidden="true">
+          <path data-process-path d="M1 0 V100" stroke="url(#g)" stroke-width="2" fill="none" vector-effect="non-scaling-stroke" />
+          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#21d4fd" /><stop offset="1" stop-color="#7c5cff" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <ol class="space-y-16">
+          {steps.map((s, i) => (
+            <li data-step class="relative">
+              <span class="absolute -left-12 top-1 grid size-6 place-items-center rounded-full bg-bg ring-2 ring-accent text-xs">{i + 1}</span>
+              <h3 class="font-display text-3xl font-semibold">{s.title}</h3>
+              <p class="mt-2 max-w-lg text-muted">{s.body}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="px-5 pb-24">
+      <div class="glass mx-auto max-w-6xl overflow-hidden rounded-[var(--radius-card)] px-8 py-20 text-center">
+        <h2 class="font-display text-[clamp(2.25rem,5vw,4.5rem)] font-semibold leading-none tracking-tight">Want a page like this?</h2>
+        <p class="mx-auto mt-5 max-w-lg text-muted">Revolution505 designs and builds 3D and motion websites, from one landing page to a full product site.</p>
+        <div class="mt-9 flex flex-wrap justify-center gap-3">
+          <a data-magnetic href="https://revolution505.com/en/" class="rounded-full bg-accent px-6 py-3 font-medium text-white">Talk to Revolution505</a>
+          <a href="https://github.com/ChristianJair27/motion-landing" class="rounded-full border border-line px-6 py-3 font-medium hover:border-muted">View the code</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-line px-5 py-8 text-center text-sm text-muted">
+    Aurora is a fictional brand. Concept and code by <a class="underline hover:text-text" href="https://revolution505.com/en/">Revolution505</a>.
+  </footer>
+
+  <script>
+    import { initMotion } from '../scripts/motion'
+    import type { HeroScene } from '../scripts/hero3d'
+
+    let scene: HeroScene | null = null
+    initMotion(() => scene)
+
+    // Load the 3D scene after the page is idle so it never blocks first paint
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const start = async () => {
+      const canvas = document.getElementById('hero-canvas') as HTMLCanvasElement | null
+      if (!canvas) return
+      const { createHeroScene } = await import('../scripts/hero3d')
+      scene = createHeroScene(canvas, { static: reduce })
+    }
+    if ('requestIdleCallback' in window) requestIdleCallback(start, { timeout: 1500 })
+    else setTimeout(start, 300)
+  </script>
+</Base>

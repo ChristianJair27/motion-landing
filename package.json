@@ -1,0 +1,29 @@
+{
+  "name": "motion-landing",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.2.0",
+    "@fontsource-variable/space-grotesk": "^5.2.0",
+    "@tailwindcss/vite": "^4.1.0",
+    "astro": "^5.18.0",
+    "gsap": "^3.13.0",
+    "tailwindcss": "^4.1.0",
+    "three": "^0.176.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@types/three": "^0.176.0",
+    "typescript": "^5.9.3"
+  },
+  "overrides": {
+    "vite": "^6.4.5"
+  }
+}

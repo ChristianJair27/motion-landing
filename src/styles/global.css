@@ -1,0 +1,73 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/space-grotesk';
+
+/* Design tokens — mirror of src/design/tokens.json */
+@theme {
+  --color-bg: #07070c;
+  --color-surface: #10101a;
+  --color-line: #23233a;
+  --color-text: #ecebf5;
+  --color-muted: #9a98b3;
+  --color-accent: #7c5cff;
+  --color-accent-2: #21d4fd;
+  --color-accent-3: #ff5ca8;
+  --font-display: 'Space Grotesk Variable', system-ui, sans-serif;
+  --font-sans: 'Inter Variable', system-ui, sans-serif;
+  --radius-card: 28px;
+}
+
+:root {
+  color-scheme: dark;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: white;
+}
+
+.text-gradient {
+  background: linear-gradient(100deg, var(--color-text) 20%, var(--color-accent-2) 55%, var(--color-accent) 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.glass {
+  background: color-mix(in oklab, var(--color-surface) 70%, transparent);
+  border: 1px solid var(--color-line);
+  backdrop-filter: blur(14px);
+}
+
+/* Poster shown until the WebGL scene is ready (and kept if WebGL is unavailable) */
+.hero-poster {
+  background:
+    radial-gradient(40% 40% at 65% 45%, color-mix(in oklab, var(--color-accent) 55%, transparent), transparent 70%),
+    radial-gradient(30% 30% at 40% 60%, color-mix(in oklab, var(--color-accent-2) 35%, transparent), transparent 70%);
+}
+
+.marquee {
+  mask-image: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
